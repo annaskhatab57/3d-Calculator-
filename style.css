@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'poppins',sans-serif;
+}
+body{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #0f1724;
+   
+    background-image:  url('Table top.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #eef2f7;
+}
+.Calculator
+{
+    border: 0px solid #717377;
+    padding: 20px;
+    border-radius: 18px;
+    background-attachment: fixed;
+    background-color: rgb(14, 13, 13);
+   
+    box-shadow: 20px 10px 0 rgba(0,0,0,0.4), 0 14px 28px rgba(2,6,23,0.18), inset -13px -13px 2.5px rgba(255,255,255,0.6);
+
+}
+#calc{
+    background-image: url('texture2.png');
+    filter: brightness(0.8);}
+@font-face {
+  font-family: 'MyCustomFont';
+    src: url('LCDMB___.TTF') format('truetype');
+
+
+}
+
+.power{
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background:white;
+    background-image: url("switch.png"); 
+    background-size:contain;
+   
+    cursor: pointer;
+}
+input
+{
+    width: 320px;
+    border: none;
+    padding: 24px;
+    margin: 10px;
+  font-family: 'MyCustomFont', sans-serif; 
+    color: black;
+    background:fixed;
+
+    background-color:  #98a089e3;
+    border-radius: 0px;
+    box-shadow: 0px 3px 22px rgba(3, 3, 3, 0.1), 0 14px 28px rgba(0, 0, 0, 0.1), inset   3px 3px 0 rgba(11, 8, 8, 0.6);
+    font-size: 40px;
+    text-align: right;
+    cursor: pointer;
+}
+input::placeholder
+{
+    color:black;
+
+}
+button{
+    border: none;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    
+    border-radius: 8px;
+
+    background: linear-gradient(180deg, rgba(71, 81, 66, 0.755), rgba(230,230,230,0.96));
+    color: #0b1220;
+    font-size: 20px;
+    box-shadow: 0 10px 0 rgba(0,0,0,0.6), 0 14px 28px rgba(2,6,23,0.18), inset -3px -3px 0 rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: transform .06s ease, box-shadow .08s ease, filter .08s ease;
+}
+button:hover
+{
+   background: linear-gradient(180deg, rgba(71, 81, 66, 0.755), rgba(154, 158, 151, 0.755));
+
+   
+}
+button:active
+{
+   transform: scale(0.87,0.87);
+   box-shadow: 0 18px 34px rgba(2,6,23,0.24), 0 2px 0 rgba(0,0,0,0.04);
+}
+.equal
+{
+    background: linear-gradient(180deg, #9b4d0d, #d7924c);
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(251,124,20,0.28), 0 3 0 rgba(0,0,0,0.06);
+    border-radius: 8px;
+}
+.equal:hover
+{
+    background: linear-gradient(180deg, #7e3e07, #b87a3a);
+    filter: brightness(1.02);
+}
+.operator{
+    background: linear-gradient(180deg, #0e6b32, #7be6bd);
+    color: #062018;
+    box-shadow: 0 10px 22px rgba(22,199,132,0.14), 0 3 0 rgba(0,0,0,0.04);
+    border-radius: 8px;
+}
+.operator:hover{
+   background: linear-gradient(180deg, #0b7735, #1f5d46);
+}
+.power:hover{
+    filter: brightness(0.5);
+    background-color: white;
+    background-image: url("switch.png");
+    background-size: contain;
+
+}
