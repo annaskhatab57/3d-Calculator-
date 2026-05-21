@@ -4,49 +4,190 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-
-    <title>Calculator</title>
+    <title>Scientific Calculator</title>
 </head>
 <body>
- 
-    <div class="Calculator" id="calc">
-           <div><button class = "power"></button> </div>
-        <input type="text" placeholder="0" id="inputbox">
-        <div>
-            <button class="operator" id="ac">AC</button>
-            <button class="operator" >DEL</button>
-            <button class="operator">%</button>
-            <button class="operator">/</button>
-        </div>
-        <div>
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button class="operator">x</button>
-        </div>
-        <div>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button class="operator">-</button>
-        </div>
-        <div>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button class="operator">+</button>
-        </div>
-        <div>
-            <button>00</button>
-            <button>0</button>
-            <button>.</button>
-            <button class="equal">=</button>
-           
-            <audio id="click-sound" src="keyboard-click-327728.mp3" preload="auto"></audio>
-            <script src="javascpt.js"></script>
-        </div>
-     
-    </div>
     
+    <div class="app-container">
+        
+        <!-- Floating Settings Dock -->
+        <div class="settings-dock">
+            <button class="dock-btn active" id="sound-toggle-btn" title="Toggle Sound (Mute/Unmute)">🔊</button>
+            <button class="dock-btn" id="theme-toggle-btn" title="Toggle Dark Mode">🌙</button>
+            <button class="dock-btn" id="rgb-toggle-btn" title="Toggle RGB Underglow">🌈</button>
+            <button class="dock-btn" id="drawer-toggle-btn" title="History & Constants">📜</button>
+        </div>
+
+        <!-- Calculator Container -->
+        <div class="Calculator" id="calc">
+            <!-- Top bar with Power, Brand Logo, Solar Panel, and LED -->
+            <div class="calculator-top">
+                <button class="power" id="power-btn" title="Power On/Off"></button>
+                <div class="brand">ANTIGRAVITY<br><span class="sub-brand">S-V.P.A.M.</span></div>
+                <div class="solar-panel">
+                    <div class="solar-cell"></div>
+                    <div class="solar-cell"></div>
+                    <div class="solar-cell"></div>
+                    <div class="solar-cell"></div>
+                </div>
+                <div class="led-indicator active" id="led-indicator"></div>
+            </div>
+
+            <!-- LCD Screen -->
+            <div class="screen-container" id="screen-container">
+                <div class="screen-status-bar">
+                    <span class="status-indicator active" id="deg-indicator">DEG</span>
+                    <span class="status-indicator" id="rad-indicator">RAD</span>
+                </div>
+                <div class="expression-display" id="expression-display"></div>
+                <div class="result-display" id="result-display">0</div>
+            </div>
+
+            <!-- Scientific Keys Grid -->
+            <div class="scientific-keys">
+                <div class="button-row">
+                    <button class="sci-btn">sin</button>
+                    <button class="sci-btn">cos</button>
+                    <button class="sci-btn">tan</button>
+                    <button class="sci-btn">^</button>
+                    <button class="sci-btn">&radic;</button>
+                </div>
+                <div class="button-row">
+                    <button class="sci-btn">ln</button>
+                    <button class="sci-btn">log</button>
+                    <button class="sci-btn">&pi;</button>
+                    <button class="sci-btn">e</button>
+                    <button class="sci-btn">x!</button>
+                </div>
+                <div class="button-row">
+                    <button class="sci-btn" id="mode-toggle" title="Toggle Degree/Radian">D/R</button>
+                    <button class="sci-btn">(</button>
+                    <button class="sci-btn">)</button>
+                    <button class="sci-btn">Ans</button>
+                    <button class="sci-btn">EXP</button>
+                </div>
+            </div>
+
+            <!-- Basic Keys Grid -->
+            <div class="basic-keys">
+                <div class="button-row">
+                    <button class="operator" id="ac">AC</button>
+                    <button class="operator">DEL</button>
+                    <button class="operator">%</button>
+                    <button class="operator">/</button>
+                </div>
+                <div class="button-row">
+                    <button>7</button>
+                    <button>8</button>
+                    <button>9</button>
+                    <button class="operator">x</button>
+                </div>
+                <div class="button-row">
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button>
+                    <button class="operator">-</button>
+                </div>
+                <div class="button-row">
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button class="operator">+</button>
+                </div>
+                <div class="button-row">
+                    <button>00</button>
+                    <button>0</button>
+                    <button>.</button>
+                    <button class="equal">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide-out Drawer for History & Constants -->
+        <div class="drawer" id="drawer">
+            <div class="drawer-header">
+                <h3>History & Constants</h3>
+                <button class="close-drawer-btn" id="close-drawer-btn">&times;</button>
+            </div>
+            <div class="drawer-tabs">
+                <button class="tab-btn active" id="tab-history">History</button>
+                <button class="tab-btn" id="tab-constants">Constants</button>
+            </div>
+            <div class="drawer-content">
+                <!-- History Panel -->
+                <div class="tab-panel active" id="panel-history">
+                    <div class="history-list" id="history-list">
+                        <div class="empty-msg">No calculations yet.</div>
+                    </div>
+                    <button class="clear-history-btn" id="clear-history-btn">Clear History</button>
+                </div>
+                <!-- Scientific Constants Panel -->
+                <div class="tab-panel" id="panel-constants">
+                    <div class="constants-list">
+                        <div class="constant-item" data-val="299792458" title="Speed of light (c) = 2.998 × 10⁸ m/s">
+                            <span class="const-sym">c</span>
+                            <div class="const-details">
+                                <span class="const-name">Speed of Light</span>
+                                <span class="const-val">2.998e8 m/s</span>
+                            </div>
+                        </div>
+                        <div class="constant-item" data-val="6.62607015e-34" title="Planck constant (h) = 6.626 × 10⁻³⁴ J·s">
+                            <span class="const-sym">h</span>
+                            <div class="const-details">
+                                <span class="const-name">Planck Constant</span>
+                                <span class="const-val">6.626e-34 J·s</span>
+                            </div>
+                        </div>
+                        <div class="constant-item" data-val="6.6743e-11" title="Gravitational constant (G) = 6.674 × 10⁻¹¹ m³/kg·s²">
+                            <span class="const-sym">G</span>
+                            <div class="const-details">
+                                <span class="const-name">Gravity Constant</span>
+                                <span class="const-val">6.674e-11 m³/kg·s²</span>
+                            </div>
+                        </div>
+                        <div class="constant-item" data-val="6.02214076e23" title="Avogadro number (N_A) = 6.022 × 10²³ mol⁻¹">
+                            <span class="const-sym">N<sub>A</sub></span>
+                            <div class="const-details">
+                                <span class="const-name">Avogadro Number</span>
+                                <span class="const-val">6.022e23 mol⁻¹</span>
+                            </div>
+                        </div>
+                        <div class="constant-item" data-val="8.314462618" title="Molar gas constant (R) = 8.314 J/(mol·K)">
+                            <span class="const-sym">R</span>
+                            <div class="const-details">
+                                <span class="const-name">Molar Gas Constant</span>
+                                <span class="const-val">8.314 J/(mol·K)</span>
+                            </div>
+                        </div>
+                        <div class="constant-item" data-val="1.602176634e-19" title="Elementary charge (e) = 1.602 × 10⁻¹⁹ C">
+                            <span class="const-sym">e_c</span>
+                            <div class="const-details">
+                                <span class="const-name">Electron Charge</span>
+                                <span class="const-val">1.602e-19 C</span>
+                            </div>
+                        </div>
+                        <div class="constant-item" data-val="9.1093837e-31" title="Electron mass (m_e) = 9.109 × 10⁻³¹ kg">
+                            <span class="const-sym">m<sub>e</sub></span>
+                            <div class="const-details">
+                                <span class="const-name">Electron Mass</span>
+                                <span class="const-val">9.109e-31 kg</span>
+                            </div>
+                        </div>
+                        <div class="constant-item" data-val="1.67262192e-27" title="Proton mass (m_p) = 1.673 × 10⁻²⁷ kg">
+                            <span class="const-sym">m<sub>p</sub></span>
+                            <div class="const-details">
+                                <span class="const-name">Proton Mass</span>
+                                <span class="const-val">1.673e-27 kg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <audio id="click-sound" src="keyboard-click-327728.mp3" preload="auto"></audio>
+    <script src="javascpt.js"></script>
 </body>
 </html>

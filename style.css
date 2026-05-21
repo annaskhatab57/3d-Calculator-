@@ -1,129 +1,942 @@
-*{
+/* Typography: Local @font-face Declarations for Offline/APK Compatibility */
+@font-face {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 300;
+    src: url('fonts/outfit-300.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/outfit-400.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 500;
+    src: url('fonts/outfit-500.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 600;
+    src: url('fonts/outfit-600.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 700;
+    src: url('fonts/outfit-700.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Rajdhani';
+    font-style: normal;
+    font-weight: 500;
+    src: url('fonts/rajdhani-500.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Rajdhani';
+    font-style: normal;
+    font-weight: 600;
+    src: url('fonts/rajdhani-600.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Rajdhani';
+    font-style: normal;
+    font-weight: 700;
+    src: url('fonts/rajdhani-700.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Share Tech Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/sharetechmono-400.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('LCDMB___.TTF') format('truetype');
+}
+
+/* Global Reset & Typography */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family:'poppins',sans-serif;
+    font-family: 'Outfit', sans-serif;
 }
-body{
+
+:root {
+    --ambient-brightness: brightness(0.85);
+    --desk-blur: none;
+    --lcd-backlight: #98a089;
+    --lcd-text: #1c2613;
+    --lcd-glow: none;
+    --led-off: #331111;
+    --led-on: #00ff66;
+    --led-glow: 0 0 10px #00ff66;
+    --button-shadow-opacity: 0.6;
+}
+
+body {
     width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
     background-color: #0f1724;
-   
-    background-image:  url('Table top.png');
+    background-image: url('Table top.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     color: #eef2f7;
+    transition: background 0.5s ease, filter 0.5s ease;
+    overflow: hidden;
 }
-.Calculator
-{
-    border: 0px solid #717377;
+
+/* Dark Theme Variables */
+body.dark-theme {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.88)), url('Table top.png');
+    --lcd-backlight: #a6c098;
+    --lcd-text: #0e1b07;
+    --lcd-glow: 0 0 18px rgba(166, 192, 152, 0.7);
+    --button-shadow-opacity: 0.9;
+}
+
+
+/* App Container & Flex Alignment */
+.app-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    position: relative;
+    max-width: 100vw;
     padding: 20px;
-    border-radius: 18px;
-    background-attachment: fixed;
+    transition: all 0.3s ease;
+}
+
+/* ----------------------------------------------------
+   1. FLOATING SETTINGS DOCK
+---------------------------------------------------- */
+.settings-dock {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 12px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.dock-btn {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.dock-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dock-btn:active {
+    transform: scale(0.95);
+}
+
+.dock-btn.active {
+    background: rgba(99, 102, 241, 0.4);
+    border: 1px solid rgba(99, 102, 241, 0.8);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+    color: #fff;
+}
+
+/* ----------------------------------------------------
+   2. CALCULATOR CASING (SCALED FOR WOOD DESK)
+---------------------------------------------------- */
+.Calculator {
+    width: 290px;
+    border: 0px solid #717377;
+    padding: 16px;
+    border-radius: 20px;
     background-color: rgb(14, 13, 13);
-   
-    box-shadow: 20px 10px 0 rgba(0,0,0,0.4), 0 14px 28px rgba(2,6,23,0.18), inset -13px -13px 2.5px rgba(255,255,255,0.6);
-
-}
-#calc{
     background-image: url('texture2.png');
-    filter: brightness(0.8);}
-@font-face {
-  font-family: 'MyCustomFont';
-    src: url('LCDMB___.TTF') format('truetype');
-
-
+    background-repeat: repeat;
+    filter: brightness(0.9);
+    position: relative;
+    box-shadow: 15px 8px 0 rgba(0, 0, 0, 0.45), 
+                0 14px 28px rgba(2, 6, 23, 0.25), 
+                inset -8px -8px 2px rgba(255, 255, 255, 0.5);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+    user-select: none;
+    z-index: 10;
 }
 
-.power{
-    width: 40px;
-    height: 40px;
+/* ----------------------------------------------------
+   RGB UNDERGLOW LED Strip
+---------------------------------------------------- */
+.Calculator.rgb-active {
+    filter: brightness(1.0);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+}
+
+.Calculator.rgb-active::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    z-index: -1;
+    border-radius: 24px;
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400%;
+    filter: blur(8px);
+    animation: rgbShift 10s linear infinite;
+    opacity: 0.9;
+}
+
+@keyframes rgbShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.dark-theme .Calculator {
+    filter: brightness(0.8);
+    box-shadow: 15px 8px 0 rgba(0,0,0,0.6), 
+                0 14px 28px rgba(0, 0, 0, 0.5), 
+                inset -8px -8px 2px rgba(255, 255, 255, 0.3);
+}
+
+.dark-theme .Calculator.rgb-active {
+    filter: brightness(0.9);
+}
+
+/* Calculator Top (Branding, Solar, LED) */
+.calculator-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 0 2px;
+}
+
+.power {
+    width: 34px;
+    height: 34px;
     border: none;
     border-radius: 50%;
-    background:white;
-    background-image: url("switch.png"); 
-    background-size:contain;
-   
-    cursor: pointer;
-}
-input
-{
-    width: 320px;
-    border: none;
-    padding: 24px;
-    margin: 10px;
-  font-family: 'MyCustomFont', sans-serif; 
-    color: black;
-    background:fixed;
-
-    background-color:  #98a089e3;
-    border-radius: 0px;
-    box-shadow: 0px 3px 22px rgba(3, 3, 3, 0.1), 0 14px 28px rgba(0, 0, 0, 0.1), inset   3px 3px 0 rgba(11, 8, 8, 0.6);
-    font-size: 40px;
-    text-align: right;
-    cursor: pointer;
-}
-input::placeholder
-{
-    color:black;
-
-}
-button{
-    border: none;
-    width: 60px;
-    height: 60px;
-    margin: 10px;
-    
-    border-radius: 8px;
-
-    background: linear-gradient(180deg, rgba(71, 81, 66, 0.755), rgba(230,230,230,0.96));
-    color: #0b1220;
-    font-size: 20px;
-    box-shadow: 0 10px 0 rgba(0,0,0,0.6), 0 14px 28px rgba(2,6,23,0.18), inset -3px -3px 0 rgba(255,255,255,0.6);
-    cursor: pointer;
-    transition: transform .06s ease, box-shadow .08s ease, filter .08s ease;
-}
-button:hover
-{
-   background: linear-gradient(180deg, rgba(71, 81, 66, 0.755), rgba(154, 158, 151, 0.755));
-
-   
-}
-button:active
-{
-   transform: scale(0.87,0.87);
-   box-shadow: 0 18px 34px rgba(2,6,23,0.24), 0 2px 0 rgba(0,0,0,0.04);
-}
-.equal
-{
-    background: linear-gradient(180deg, #9b4d0d, #d7924c);
-    color: #fff;
-    box-shadow: 0 10px 24px rgba(251,124,20,0.28), 0 3 0 rgba(0,0,0,0.06);
-    border-radius: 8px;
-}
-.equal:hover
-{
-    background: linear-gradient(180deg, #7e3e07, #b87a3a);
-    filter: brightness(1.02);
-}
-.operator{
-    background: linear-gradient(180deg, #0e6b32, #7be6bd);
-    color: #062018;
-    box-shadow: 0 10px 22px rgba(22,199,132,0.14), 0 3 0 rgba(0,0,0,0.04);
-    border-radius: 8px;
-}
-.operator:hover{
-   background: linear-gradient(180deg, #0b7735, #1f5d46);
-}
-.power:hover{
-    filter: brightness(0.5);
-    background-color: white;
+    background: white;
     background-image: url("switch.png");
     background-size: contain;
+    cursor: pointer;
+    margin: 0;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.5), inset -2px -2px 0 rgba(255,255,255,0.4);
+    transition: transform 0.1s ease, filter 0.1s ease;
+}
 
+.power:hover {
+    filter: brightness(1.15);
+}
+
+.power:active {
+    transform: scale(0.9);
+}
+
+.brand {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    color: #8fa082;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    opacity: 0.8;
+}
+
+.brand .sub-brand {
+    font-size: 7px;
+    color: #eef2f7;
+    font-weight: normal;
+    opacity: 0.6;
+}
+
+.solar-panel {
+    width: 65px;
+    height: 20px;
+    background: linear-gradient(180deg, #352925 0%, #1c1311 100%);
+    border: 1.5px solid #111;
+    border-radius: 2px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1px;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.8), 1px 1px 1px rgba(255,255,255,0.05);
+}
+
+.solar-cell {
+    width: 12px;
+    height: 100%;
+    border-right: 1px solid #4a3c38;
+    background: linear-gradient(90deg, transparent 90%, rgba(255,255,255,0.12) 100%);
+}
+
+.solar-cell:last-child {
+    border-right: none;
+}
+
+.led-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--led-off);
+    border: 1px solid #111;
+    box-shadow: inset 1px 1px 1px rgba(0,0,0,0.6);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.led-indicator.active {
+    background-color: var(--led-on);
+    box-shadow: var(--led-glow), inset 1px 1px 1px rgba(255,255,255,0.5);
+}
+
+/* ----------------------------------------------------
+   3. LCD SCREEN
+---------------------------------------------------- */
+.screen-container {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 6px 10px;
+    background-color: var(--lcd-backlight);
+    border-radius: 5px;
+    box-shadow: inset 3px 3px 5px rgba(0,0,0,0.5), 
+                inset -1.5px -1.5px 2px rgba(255,255,255,0.35), 
+                0 4px 10px rgba(0,0,0,0.25), 
+                var(--lcd-glow);
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 82px;
+    border: 2px solid #1e2418;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.screen-container.off {
+    background-color: #161814 !important;
+    border-color: #0f110e !important;
+    box-shadow: inset 3px 3px 8px rgba(0,0,0,0.8), 0 4px 10px rgba(0,0,0,0.2) !important;
+}
+
+.screen-status-bar {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    height: 10px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--lcd-text);
+    user-select: none;
+    transition: color 0.4s ease;
+}
+
+.status-indicator {
+    opacity: 0.1;
+    transition: opacity 0.2s ease;
+}
+
+.status-indicator.active {
+    opacity: 0.8;
+}
+
+.expression-display {
+    height: 18px;
+    font-family: 'Share Tech Mono', 'MyCustomFont', monospace;
+    font-size: 13px;
+    color: var(--lcd-text);
+    letter-spacing: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    direction: ltr;
+    text-align: right;
+    opacity: 0.8;
+    transition: all 0.4s ease;
+}
+
+.result-display {
+    height: 34px;
+    font-family: 'Share Tech Mono', 'MyCustomFont', monospace;
+    font-size: 30px;
+    line-height: 34px;
+    color: var(--lcd-text);
+    letter-spacing: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: all 0.4s ease;
+}
+
+.screen-container.off .expression-display,
+.screen-container.off .result-display,
+.screen-container.off .status-indicator {
+    opacity: 0 !important;
+}
+
+/* ----------------------------------------------------
+   4. BUTTONS ROW & STYLING (SCALED DOWN)
+---------------------------------------------------- */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.scientific-keys {
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Scientific Keys */
+.sci-btn {
+    border: none;
+    width: 44px;
+    height: 32px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #2d3748 0%, #151a24 100%);
+    color: #e2e8f0;
+    font-size: 13px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    box-shadow: 0 4px 0 rgba(0,0,0,var(--button-shadow-opacity)), 
+                0 4px 8px rgba(0,0,0,0.35), 
+                inset -1.5px -1.5px 0 rgba(255,255,255,0.08);
+    cursor: pointer;
+    transition: transform .06s ease, box-shadow .08s ease, filter .08s ease, background 0.3s ease;
+}
+
+.sci-btn:hover {
+    background: linear-gradient(180deg, #3c485d 0%, #202735 100%);
+    color: #fff;
+}
+
+.sci-btn:active {
+    transform: scale(0.93);
+    box-shadow: 0 2px 0 rgba(0,0,0,var(--button-shadow-opacity)), 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dark-theme .sci-btn {
+    background: linear-gradient(180deg, #1e2530 0%, #0d1117 100%);
+    box-shadow: 0 4px 0 #000, 
+                0 4px 8px rgba(0,0,0,0.5), 
+                inset -1px -1px 0 rgba(255,255,255,0.05),
+                0 0 4px rgba(99, 102, 241, 0.35); /* indigo halo */
+    text-shadow: 0 0 4px rgba(226, 232, 240, 0.6);
+}
+
+/* Basic Keys */
+.basic-keys button {
+    border: none;
+    width: 54px;
+    height: 50px;
+    border-radius: 7px;
+    background: linear-gradient(180deg, rgba(82, 92, 77, 0.75), rgba(225,225,225,0.92));
+    color: #0b1220;
+    font-size: 20px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    box-shadow: 0 6px 0 rgba(0,0,0,var(--button-shadow-opacity)), 
+                0 8px 12px rgba(2,6,23,0.22), 
+                inset -2px -2px 0 rgba(255,255,255,0.45);
+    cursor: pointer;
+    transition: transform .06s ease, box-shadow .08s ease, filter .08s ease, background 0.3s ease;
+    margin: 4px 0;
+}
+
+.basic-keys button:hover {
+    background: linear-gradient(180deg, rgba(82, 92, 77, 0.75), rgba(165, 170, 162, 0.85));
+}
+
+.basic-keys button:active {
+    transform: scale(0.92);
+    box-shadow: 0 2px 0 rgba(0,0,0,var(--button-shadow-opacity)), 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.dark-theme .basic-keys button {
+    background: linear-gradient(180deg, rgba(41, 46, 38, 0.8), rgba(120,120,120,0.92));
+    color: #fff;
+    box-shadow: 0 6px 0 #000, 
+                0 8px 12px rgba(0,0,0,0.5), 
+                inset -2px -2px 0 rgba(255,255,255,0.25),
+                0 0 5px rgba(255, 255, 255, 0.15); /* halo */
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+/* Operator Keys */
+.operator {
+    background: linear-gradient(180deg, #0e6b32, #7be6bd) !important;
+    color: #062018 !important;
+    box-shadow: 0 6px 0 rgba(0,0,0,var(--button-shadow-opacity)), 
+                0 8px 12px rgba(22,199,132,0.14), 
+                inset -2px -2px 0 rgba(255,255,255,0.4) !important;
+}
+
+.operator:hover {
+    background: linear-gradient(180deg, #0b7735, #1f5d46) !important;
+    color: #fff !important;
+}
+
+.dark-theme .operator {
+    background: linear-gradient(180deg, #08401e, #459a78) !important;
+    color: #e2f0e8 !important;
+    box-shadow: 0 6px 0 #000, 
+                0 8px 12px rgba(0,0,0,0.4), 
+                inset -2px -2px 0 rgba(255,255,255,0.2),
+                0 0 5px rgba(22, 199, 132, 0.3) !important; /* green halo */
+    text-shadow: 0 0 6px rgba(123, 230, 189, 0.8);
+}
+
+/* Equal Key */
+.equal {
+    background: linear-gradient(180deg, #9b4d0d, #d7924c) !important;
+    color: #fff !important;
+    box-shadow: 0 6px 0 rgba(0,0,0,var(--button-shadow-opacity)), 
+                0 8px 12px rgba(251,124,20,0.28), 
+                inset -2px -2px 0 rgba(255,255,255,0.4) !important;
+}
+
+.equal:hover {
+    background: linear-gradient(180deg, #7e3e07, #b87a3a) !important;
+}
+
+.dark-theme .equal {
+    background: linear-gradient(180deg, #5c2d07, #99622d) !important;
+    box-shadow: 0 6px 0 #000, 
+                0 8px 12px rgba(0,0,0,0.4), 
+                inset -2px -2px 0 rgba(255,255,255,0.25),
+                0 0 6px rgba(251, 124, 20, 0.3) !important; /* orange halo */
+    text-shadow: 0 0 6px rgba(251, 124, 20, 0.8);
+}
+
+/* ----------------------------------------------------
+   5. SLIDE-OUT DRAWER (HISTORY & CONSTANTS)
+---------------------------------------------------- */
+.drawer {
+    width: 270px;
+    height: 512px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 90;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    transform: translateX(40px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.drawer.open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.drawer-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.close-drawer-btn {
+    background: none;
+    border: none;
+    color: #a0aec0;
+    font-size: 22px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-drawer-btn:hover {
+    color: #ef4444;
+}
+
+.drawer-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #a0aec0;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.tab-btn.active {
+    color: #6366f1;
+    border-bottom-color: #6366f1;
+    font-weight: 600;
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.drawer-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.tab-panel {
+    display: none;
+    height: 100%;
+    flex-direction: column;
+}
+
+.tab-panel.active {
+    display: flex;
+}
+
+/* History list styling */
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.history-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: right;
+}
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateY(-1px);
+}
+
+.history-expr {
+    font-size: 11px;
+    color: #a0aec0;
+    font-family: 'Share Tech Mono', 'MyCustomFont', monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-res {
+    font-size: 16px;
+    color: #f7fafc;
+    font-weight: bold;
+    font-family: 'Share Tech Mono', 'MyCustomFont', monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+
+.empty-msg {
+    text-align: center;
+    color: #718096;
+    font-size: 12px;
+    margin-top: 40px;
+}
+
+.clear-history-btn {
+    width: 100%;
+    padding: 10px;
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.clear-history-btn:hover {
+    background: rgba(239, 68, 68, 0.35);
+    color: #fff;
+}
+
+/* Constants list styling */
+.constants-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.constant-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.constant-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateX(3px);
+}
+
+.const-sym {
+    width: 32px;
+    height: 32px;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #818cf8;
+    font-weight: 600;
+    font-style: italic;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    font-size: 13px;
+}
+
+.const-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.const-name {
+    font-size: 11px;
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+.const-val {
+    font-size: 9px;
+    color: #718096;
+    font-family: 'Share Tech Mono', monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 1px;
+}
+
+/* ----------------------------------------------------
+   6. RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS
+---------------------------------------------------- */
+@media (max-width: 640px) {
+    body {
+        overflow-y: auto;
+    }
+    
+    .app-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 10px;
+        width: 100%;
+        min-height: 100vh;
+        justify-content: center;
+    }
+    
+    /* Move dock to horizontal at the bottom */
+    .settings-dock {
+        flex-direction: row;
+        width: 290px;
+        justify-content: space-evenly;
+        order: 2;
+        margin-top: 5px;
+        padding: 10px 8px;
+        border-radius: 12px;
+    }
+    
+    .dock-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    .Calculator {
+        order: 1;
+        margin-top: 0; /* Centered vertically on mobile */
+    }
+    
+    /* Drawer behaves as mobile bottom overlay */
+    .drawer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 70vh;
+        border-radius: 20px 20px 0 0;
+        transform: translateY(100%);
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        z-index: 150;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+    
+    .drawer.open {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Height-based Scaling to Prevent Overflows on Desktop Screens */
+@media (min-width: 641px) and (max-height: 780px) {
+    .Calculator {
+        transform: scale(0.92);
+        transform-origin: center center;
+    }
+    .settings-dock {
+        transform: scale(0.92);
+        transform-origin: center center;
+    }
+    .drawer {
+        transform: translateX(40px) scale(0.92);
+        transform-origin: center right;
+    }
+    .drawer.open {
+        transform: translateX(0) scale(0.92);
+    }
+}
+
+@media (min-width: 641px) and (max-height: 700px) {
+    .Calculator {
+        transform: scale(0.84);
+    }
+    .settings-dock {
+        transform: scale(0.84);
+    }
+    .drawer {
+        transform: translateX(40px) scale(0.84);
+    }
+    .drawer.open {
+        transform: translateX(0) scale(0.84);
+    }
+}
+
+@media (min-width: 641px) and (max-height: 620px) {
+    .Calculator {
+        transform: scale(0.76);
+    }
+    .settings-dock {
+        transform: scale(0.76);
+    }
+    .drawer {
+        transform: translateX(40px) scale(0.76);
+    }
+    .drawer.open {
+        transform: translateX(0) scale(0.76);
+    }
+}
+
+@media (min-width: 641px) and (max-height: 550px) {
+    .app-container {
+        padding: 5px;
+    }
+    .Calculator {
+        transform: scale(0.68);
+    }
+    .settings-dock {
+        transform: scale(0.68);
+    }
+    .drawer {
+        transform: translateX(40px) scale(0.68);
+    }
+    .drawer.open {
+        transform: translateX(0) scale(0.68);
+    }
+}
+
+@media (min-width: 641px) and (max-height: 480px) {
+    .Calculator {
+        transform: scale(0.60);
+    }
+    .settings-dock {
+        transform: scale(0.60);
+    }
+    .drawer {
+        transform: translateX(40px) scale(0.60);
+    }
+    .drawer.open {
+        transform: translateX(0) scale(0.60);
+    }
+}
+
+/* Height-based Scaling on Mobile Screens */
+@media (max-width: 640px) and (max-height: 640px) {
+    .Calculator {
+        transform: scale(0.85);
+        transform-origin: center center;
+    }
+}
+
+@media (max-width: 640px) and (max-height: 560px) {
+    .Calculator {
+        transform: scale(0.75);
+    }
+}
+
+@media (max-width: 640px) and (max-height: 480px) {
+    .Calculator {
+        transform: scale(0.65);
+    }
 }
