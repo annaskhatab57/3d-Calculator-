@@ -79,7 +79,7 @@
                     <button>7</button>
                     <button>8</button>
                     <button>9</button>
-                    <button class="operator">x</button>
+                    <button class="operator">×</button>
                 </div>
                 <div class="button-row">
                     <button>4</button>
@@ -105,12 +105,14 @@
         <!-- Slide-out Drawer for History & Constants -->
         <div class="drawer" id="drawer">
             <div class="drawer-header">
-                <h3>History & Constants</h3>
+                <h3>History & Utilities</h3>
                 <button class="close-drawer-btn" id="close-drawer-btn">&times;</button>
             </div>
             <div class="drawer-tabs">
                 <button class="tab-btn active" id="tab-history">History</button>
                 <button class="tab-btn" id="tab-constants">Constants</button>
+                <button class="tab-btn" id="tab-grapher">Grapher</button>
+                <button class="tab-btn" id="tab-converter">Converter</button>
             </div>
             <div class="drawer-content">
                 <!-- History Panel -->
@@ -179,6 +181,55 @@
                                 <span class="const-val">1.673e-27 kg</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <!-- Grapher Panel -->
+                <div class="tab-panel" id="panel-grapher">
+                    <div class="grapher-container">
+                        <div class="grapher-input-row">
+                            <label for="graph-expr-input">f(x) =</label>
+                            <input type="text" id="graph-expr-input" value="sin(x)" placeholder="e.g. x^2, cos(x)">
+                            <button class="grapher-x-btn" id="grapher-insert-x" title="Insert x variable">x</button>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="graph-canvas"></canvas>
+                        </div>
+                        <div class="grapher-controls">
+                            <button class="graph-ctrl-btn" id="graph-zoom-in" title="Zoom In">+</button>
+                            <button class="graph-ctrl-btn" id="graph-zoom-out" title="Zoom Out">&minus;</button>
+                            <button class="graph-ctrl-btn" id="graph-zoom-reset" title="Reset View">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Unit Converter Panel -->
+                <div class="tab-panel" id="panel-converter">
+                    <div class="converter-container">
+                        <div class="converter-field">
+                            <label for="converter-category">Category</label>
+                            <select id="converter-category">
+                                <option value="length">Length</option>
+                                <option value="weight">Weight</option>
+                                <option value="temperature">Temperature</option>
+                                <option value="area">Area</option>
+                                <option value="speed">Speed</option>
+                            </select>
+                        </div>
+                        <div class="converter-row">
+                            <div class="converter-col">
+                                <label for="converter-from-unit">From</label>
+                                <select id="converter-from-unit"></select>
+                                <input type="number" id="converter-from-value" value="1" step="any">
+                            </div>
+                            <div class="converter-arrow">&rarr;</div>
+                            <div class="converter-col">
+                                <label for="converter-to-unit">To</label>
+                                <select id="converter-to-unit"></select>
+                                <div class="converter-result-box" id="converter-to-value">0</div>
+                            </div>
+                        </div>
+                        <button class="insert-calc-btn" id="converter-insert-btn">
+                            <span>Insert to Calculator</span>
+                        </button>
                     </div>
                 </div>
             </div>
